@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-ngx-click-outside',
+  selector: 'lib-ngx-click-out',
   template: `
     <p>
-      ngx-click-outside works!
+      ngx-click-out works!
     </p>
   `,
   styles: [

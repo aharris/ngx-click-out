@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgxClickOutsideComponent } from './ngx-click-outside.component';
+import { NgxClickOutsideComponent } from './ngx-click-out.component';
 
 
 

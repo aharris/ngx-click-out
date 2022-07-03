@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NgxClickOutsideService } from './ngx-click-outside.service';
+import { NgxClickOutsideService } from './ngx-click-out.service';
 
 describe('NgxClickOutsideService', () => {
   let service: NgxClickOutsideService;

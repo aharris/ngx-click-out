@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgxClickOutsideComponent } from './ngx-click-outside.component';
+import { NgxClickOutsideComponent } from './ngx-click-out.component';
 
 describe('NgxClickOutsideComponent', () => {
   let component: NgxClickOutsideComponent;

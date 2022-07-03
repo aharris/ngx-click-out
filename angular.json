@@ -3,23 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-click-outside": {
+    "ngx-click-out": {
       "projectType": "library",
-      "root": "projects/ngx-click-outside",
-      "sourceRoot": "projects/ngx-click-outside/src",
+      "root": "projects/ngx-click-out",
+      "sourceRoot": "projects/ngx-click-out/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ngx-click-outside/ng-package.json"
+            "project": "projects/ngx-click-out/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-click-outside/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-click-out/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ngx-click-outside/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-click-out/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,13 +27,13 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-click-outside/src/test.ts",
-            "tsConfig": "projects/ngx-click-outside/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-click-outside/karma.conf.js"
+            "main": "projects/ngx-click-out/src/test.ts",
+            "tsConfig": "projects/ngx-click-out/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-click-out/karma.conf.js"
           }
         }
       }
     }
   },
-  "defaultProject": "ngx-click-outside"
+  "defaultProject": "ngx-click-out"
 }

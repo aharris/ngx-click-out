@@ -12,9 +12,9 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "ngx-click-outside": [
-        "dist/ngx-click-outside/ngx-click-outside",
-        "dist/ngx-click-outside"
+      "ngx-click-out": [
+        "dist/ngx-click-out/ngx-click-out",
+        "dist/ngx-click-out"
       ]
     },
     "declaration": false,
