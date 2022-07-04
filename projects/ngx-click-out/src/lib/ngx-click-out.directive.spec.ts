@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
-import { ClickOutDirective } from './click-out.directive';
+import { ClickOutDirective } from './ngx-click-out.directive';
 
 @Component({
   selector: 'app-test-container',
