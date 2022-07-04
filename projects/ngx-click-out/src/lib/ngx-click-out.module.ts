@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
-import { NgxClickOutsideComponent } from './ngx-click-out.component';
+import { NgxClickOutComponent } from './ngx-click-out.component';
 import { ClickOutDirective } from './click-out.directive';
 
 
 
 @NgModule({
   declarations: [
-    NgxClickOutsideComponent,
+    NgxClickOutComponent,
     ClickOutDirective
   ],
   imports: [
   ],
   exports: [
-    NgxClickOutsideComponent
+    NgxClickOutComponent
   ]
 })
-export class NgxClickOutsideModule { }
+export class NgxClickOutModule { }

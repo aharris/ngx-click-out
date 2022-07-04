@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgxClickOutsideComponent } from './ngx-click-out.component';
+import { NgxClickOutComponent } from './ngx-click-out.component';
 
-describe('NgxClickOutsideComponent', () => {
-  let component: NgxClickOutsideComponent;
-  let fixture: ComponentFixture<NgxClickOutsideComponent>;
+describe('NgxClickOutComponent', () => {
+  let component: NgxClickOutComponent;
+  let fixture: ComponentFixture<NgxClickOutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NgxClickOutsideComponent ]
+      declarations: [ NgxClickOutComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NgxClickOutsideComponent);
+    fixture = TestBed.createComponent(NgxClickOutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

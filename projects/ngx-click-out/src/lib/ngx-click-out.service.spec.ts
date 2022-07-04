@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NgxClickOutsideService } from './ngx-click-out.service';
+import { NgxClickOutService } from './ngx-click-out.service';
 
-describe('NgxClickOutsideService', () => {
-  let service: NgxClickOutsideService;
+describe('NgxClickOutService', () => {
+  let service: NgxClickOutService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(NgxClickOutsideService);
+    service = TestBed.inject(NgxClickOutService);
   });
 
   it('should be created', () => {

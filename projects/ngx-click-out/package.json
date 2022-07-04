@@ -1,6 +1,9 @@
 {
   "name": "ngx-click-out",
   "version": "0.0.1",
+  "scripts": {
+    "test": "ng test -c ./src/lib/tsconfig.spec.json"
+  },
   "peerDependencies": {
     "@angular/common": "^13.1.0",
     "@angular/core": "^13.1.0"

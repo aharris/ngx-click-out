@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class NgxClickOutsideComponent implements OnInit {
+export class NgxClickOutComponent implements OnInit {
 
   constructor() { }
 
