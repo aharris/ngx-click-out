@@ -6,9 +6,10 @@ import {
   HostListener
 } from '@angular/core';
 
-@Directive({ selector: '[clickOut]' })
+@Directive({ selector: '[out]' })
 export class ClickOutDirective {
-  @Output() clickOut = new EventEmitter<HTMLElement>();
+  @Output() in = new EventEmitter<HTMLElement>();
+  @Output() out = new EventEmitter<HTMLElement>();
 
   private eventListener: (event: Event) => void;
 
@@ -24,6 +25,8 @@ export class ClickOutDirective {
   onClickIn() {
     this.removeEventListeners();
 
+    this.in.emit(this.elementRef.nativeElement);
+
     this.setUpClickOut(this.elementRef.nativeElement);
   }
 
@@ -32,7 +35,7 @@ export class ClickOutDirective {
       const clickedInside = this.elementRef.nativeElement.contains(event.target);
 
       if (!clickedInside) {
-        this.clickOut.emit(targetElement);
+        this.out.emit(targetElement);
 
         this.removeEventListeners();
       }

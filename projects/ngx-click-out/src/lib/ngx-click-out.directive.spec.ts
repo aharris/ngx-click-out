@@ -1,22 +1,28 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
+
 import { ClickOutDirective } from './ngx-click-out.directive';
 
 @Component({
   selector: 'app-test-container',
   template: `
-        <div id="parent">
-            <div id="inner-content" (clickOut)="handleClick()">
-                Inner Content
-            </div>
-            <div id="outer-content">
-                Outer Content
-            </div>
-        </div>
-    `
+    <div>
+      <div id="inner-content"
+        (in)="onIn()"
+        (out)="onOut()">
+          Inner Content
+      </div>
+      <div id="outer-content">
+        Outer Content
+
+        <input id="outer-input" />
+      </div>
+    </div>
+  `
 })
 class ContainerComponent {
-  handleClick() { }
+  onOut() { }
+  onIn() { }
 }
 
 describe('ClickOutDirective', () => {
@@ -38,15 +44,57 @@ describe('ClickOutDirective', () => {
     container = fixture.componentInstance;
   });
 
-  it('should emit clickOut', () => {
-    fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+  describe('In - Initializing Triggers', () => {
+    it('should initialize by default in events - click', () => {
+      spyOn(container, 'onIn')
 
-    spyOn(container, 'handleClick');
+      expect(container.onIn).not.toHaveBeenCalled();
 
-    expect(container.handleClick).not.toHaveBeenCalled();
+      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
 
-    fixture.debugElement.nativeElement.querySelector('#outer-content').click();
+      expect(container.onIn).toHaveBeenCalled();
+    });
+  });
 
-    expect(container.handleClick).toHaveBeenCalled();
+  describe('Out - Triggers', () => {
+    it('should have default trigger events - click', () => {
+      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+
+      spyOn(container, 'onOut');
+
+      expect(container.onOut).not.toHaveBeenCalled();
+
+      fixture.debugElement.nativeElement.querySelector('#outer-content').click();
+
+      expect(container.onOut).toHaveBeenCalled();
+    });
+
+    it('should have default trigger events - focusin', () => {
+      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+
+      spyOn(container, 'onOut');
+
+      fixture.debugElement.nativeElement.querySelector('#outer-input')
+        .dispatchEvent(new Event('focusin', {
+          'bubbles': true
+        }));
+
+      expect(container.onOut).toHaveBeenCalled();
+    });
+
+    it('should have default trigger events - touchstart', () => {
+      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+
+      spyOn(container, 'onOut');
+
+      fixture.debugElement.nativeElement.querySelector('#outer-input')
+        .dispatchEvent(new Event('touchstart', {
+          'bubbles': true
+        }));
+
+      expect(container.onOut).toHaveBeenCalled();
+    });
+
+    it('should allow custom trigger events', () => {});
   });
 });
