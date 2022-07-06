@@ -18,9 +18,28 @@ yarn add npx-click-out
 
 ## Usage:
 
+### Import the Module:
+
+```ts
+import { NgxClickOutModule } from 'ngx-click-out';
+
+@NgModule({
+  ...
+  imports: [
+    ...
+    NgxClickOutModule
+    ...
+  ],
+  ...
+})
+export class AppModule { }
 ```
+
+### Add the `out` event.
+
+```html
   <div id="parent">
-      <div id="inner-content" (out)="handleClick()">
+      <div id="inner-content" (out)="handleClickOut()">
         Inner Content
       </div>
       <div id="outer-content">

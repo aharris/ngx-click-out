@@ -1,24 +1,56 @@
-# NgxClickOut
+# NG(X) Click Out
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.0.
+A more performant way to trigger events when an element is clicked away from. By only initializing event listeners when an element is first interacted with, or whenever you so choose, preformance is greatly improved over other methods.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name --project ngx-click-out` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-click-out`.
-> Note: Don't forget to add `--project ngx-click-out` or else it will be added to the default project in your `angular.json` file. 
+NPM: 
 
-## Build
+```
+npm i npx-click-out
+```
 
-Run `ng build ngx-click-out` to build the project. The build artifacts will be stored in the `dist/` directory.
+Yarn: 
 
-## Publishing
+```
+yarn add npx-click-out
+```
 
-After building your library with `ng build ngx-click-out`, go to the dist folder `cd dist/ngx-click-out` and run `npm publish`.
+## Usage:
 
-## Running unit tests
+### Import the Module:
 
-Run `ng test ngx-click-out` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```ts
+import { NgxClickOutModule } from 'ngx-click-out';
 
-## Further help
+@NgModule({
+  ...
+  imports: [
+    ...
+    NgxClickOutModule
+    ...
+  ],
+  ...
+})
+export class AppModule { }
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Add the `out` event.
+
+```html
+  <div id="parent">
+      <div id="inner-content" (out)="handleClickOut()">
+        Inner Content
+      </div>
+      <div id="outer-content">
+        Outer Content
+      </div>
+  </div>
+```
+
+## Events
+
+| Event  | description |
+| ------ | ----------- |
+| in     | Event fired when an element is initialized and ready to be clicked out of. |
+| out    | Event fired when an initialized element is clicked outside of.             |
