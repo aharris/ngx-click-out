@@ -20,7 +20,7 @@ yarn add npx-click-out
 
 ```
   <div id="parent">
-      <div id="inner-content" (clickOut)="handleClick()">
+      <div id="inner-content" (out)="handleClick()">
         Inner Content
       </div>
       <div id="outer-content">
@@ -31,7 +31,7 @@ yarn add npx-click-out
 
 ## Events
 
-| Event    | description |
-| -------- | ----------- |
-| clickOut | Event fired when an initialized element is clicked outside of. |
-| init     | Event fired when an element is initialized and ready to be clicked out of. |
+| Event  | description |
+| ------ | ----------- |
+| in     | Event fired when an element is initialized and ready to be clicked out of. |
+| out    | Event fired when an initialized element is clicked outside of.             |
