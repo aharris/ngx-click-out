@@ -5,5 +5,5 @@
 ``` 
 $ npm build
 $ cd dist/ngx-click-out
-$ npm publish
+$ npm publish --access=public
 ```

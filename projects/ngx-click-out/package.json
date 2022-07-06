@@ -1,5 +1,5 @@
 {
-  "name": "ngx-click-out",
+  "name": "@busypixels/ngx-click-out",
   "version": "0.0.1",
   "scripts": {
     "test": "ng test -c ./src/lib/tsconfig.spec.json"
