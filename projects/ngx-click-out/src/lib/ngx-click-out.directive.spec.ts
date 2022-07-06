@@ -54,6 +54,32 @@ describe('ClickOutDirective', () => {
 
       expect(container.onIn).toHaveBeenCalled();
     });
+
+    it('should initialize by default in events - focusin', () => {
+      spyOn(container, 'onIn')
+
+      expect(container.onIn).not.toHaveBeenCalled();
+
+      fixture.debugElement.nativeElement.querySelector('#inner-content')
+        .dispatchEvent(new Event('focusin', {
+          'bubbles': true
+        }));
+
+      expect(container.onIn).toHaveBeenCalled();
+    });
+
+    it('should initialize by default in events - touchstart', () => {
+      spyOn(container, 'onIn')
+
+      expect(container.onIn).not.toHaveBeenCalled();
+
+      fixture.debugElement.nativeElement.querySelector('#inner-content')
+        .dispatchEvent(new Event('touchstart', {
+          'bubbles': true
+        }));
+
+      expect(container.onIn).toHaveBeenCalled();
+    });
   });
 
   describe('Out - Triggers', () => {
