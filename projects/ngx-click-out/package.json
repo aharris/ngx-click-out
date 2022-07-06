@@ -1,7 +1,10 @@
 {
   "name": "@busypixels/ngx-click-out",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/aharris/ngx-click-out"
+  },
   "scripts": {
     "test": "ng test -c ./src/lib/tsconfig.spec.json"
   },
