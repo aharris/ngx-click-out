@@ -4,28 +4,32 @@ import {
   Output,
   EventEmitter,
   HostListener,
-  OnInit
+  OnInit,
+  Input
 } from '@angular/core';
 
 @Directive({ selector: '[out]' })
 export class ClickOutDirective implements OnInit {
+  @Input() outEvents: string[] = ['click', 'touchstart', 'focusin'];
+
   @Output() in = new EventEmitter<HTMLElement>();
   @Output() out = new EventEmitter<HTMLElement>();
 
   private eventListener: (event: Event) => void;
 
-  // Todo: allow customization
-  private outEvents: string[] = ['click', 'touchstart', 'focusin'];
-
   constructor(
     private readonly elementRef: ElementRef
-  ) { }
+  ) {
+    console.log('outEvents: ', this.outEvents);
+  }
 
   // TODO: allow custom triggers
   @HostListener('click', ['$event.target'])
   @HostListener('touchstart', ['$event.target'])
   @HostListener('focusin', ['$event.target'])
   onClickIn() {
+    console.log('onClickIn: ', this.onClickIn);
+
     this.removeEventListeners();
 
     this.in.emit(this.elementRef.nativeElement);
@@ -47,6 +51,8 @@ export class ClickOutDirective implements OnInit {
         this.removeEventListeners();
       }
     };
+
+    console.log('this.outEvents: ', this.outEvents);
 
     this.outEvents.forEach((eventName: string) => {
       document.addEventListener(eventName, this.eventListener);

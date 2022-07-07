@@ -25,26 +25,48 @@ class ContainerComponent {
   onIn() { }
 }
 
-describe('ClickOutDirective', () => {
-  let fixture: ComponentFixture<ContainerComponent>;
-  let container: ContainerComponent;
+@Component({
+  selector: 'app-test-container',
+  template: `
+    <div>
+      <div id="inner-content"
+        [outEvents]="['mouseenter']"
+        (out)="onOut()">
+          Inner Content
+      </div>
+      <div id="outer-content">
+        Outer Content
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ContainerComponent, ClickOutDirective],
-      providers: [
-        {
-          provide: ComponentFixtureAutoDetect,
-          useValue: true
-        }
-      ]
+        <input id="outer-input" />
+      </div>
+    </div>
+  `
+})
+class ContainerCustomOutComponent {
+  onOut() { }
+  onIn() { }
+}
+
+describe('ClickOutDirective', () => {
+  describe('In - Initializing Triggers', () => {
+    let fixture: ComponentFixture<ContainerComponent>;
+    let container: ContainerComponent;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [ContainerComponent, ClickOutDirective],
+        providers: [
+          {
+            provide: ComponentFixtureAutoDetect,
+            useValue: true
+          }
+        ]
+      });
+
+      fixture = TestBed.createComponent(ContainerComponent);
+      container = fixture.componentInstance;
     });
 
-    fixture = TestBed.createComponent(ContainerComponent);
-    container = fixture.componentInstance;
-  });
-
-  describe('In - Initializing Triggers', () => {
     it('should initialize by default in events - click', () => {
       spyOn(container, 'onIn')
 
@@ -83,6 +105,24 @@ describe('ClickOutDirective', () => {
   });
 
   describe('Out - Triggers', () => {
+    let fixture: ComponentFixture<ContainerComponent>;
+    let container: ContainerComponent;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [ContainerComponent, ClickOutDirective],
+        providers: [
+          {
+            provide: ComponentFixtureAutoDetect,
+            useValue: true
+          }
+        ]
+      });
+
+      fixture = TestBed.createComponent(ContainerComponent);
+      container = fixture.componentInstance;
+    });
+
     it('should have default trigger events - click', () => {
       fixture.debugElement.nativeElement.querySelector('#inner-content').click();
 
@@ -120,7 +160,47 @@ describe('ClickOutDirective', () => {
 
       expect(container.onOut).toHaveBeenCalled();
     });
+  });
 
-    it('should allow custom trigger events', () => {});
+  describe('Out - Custom Triggers', () => {
+    let fixture: ComponentFixture<ContainerComponent>;
+    let container: ContainerComponent;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [ContainerCustomOutComponent, ClickOutDirective],
+        providers: [
+          {
+            provide: ComponentFixtureAutoDetect,
+            useValue: true
+          }
+        ]
+      });
+
+      fixture = TestBed.createComponent(ContainerCustomOutComponent);
+      container = fixture.componentInstance;
+    });
+
+    it('should have custom trigger events', () => {
+      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+
+      spyOn(container, 'onOut');
+
+      expect(container.onOut).not.toHaveBeenCalled();
+
+      fixture.debugElement.nativeElement.querySelector('#outer-content')
+        .dispatchEvent(new MouseEvent('click', {
+          'bubbles': true
+        }));
+
+      expect(container.onOut).not.toHaveBeenCalled();
+
+      fixture.debugElement.nativeElement.querySelector('#outer-content')
+      .dispatchEvent(new MouseEvent('mouseenter', {
+        'bubbles': true
+      }));
+
+      expect(container.onOut).toHaveBeenCalled();
+    });
   });
 });
