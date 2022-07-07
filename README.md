@@ -39,7 +39,7 @@ export class AppModule { }
 
 ```html
   <div id="parent">
-      <div id="inner-content" (out)="handleClickOut()">
+      <div id="inner-content" click-out (out)="handleClickOut()">
         Inner Content
       </div>
       <div id="outer-content">
