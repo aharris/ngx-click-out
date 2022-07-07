@@ -24,9 +24,7 @@ export class ClickOutDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.inEventListener = (event: Event) => {
-      console.log('inEventListener: ', event);
-
+    this.inEventListener = (_event: Event) => {
       this.removeInEventListeners();
 
       this.in.emit(this.elementRef.nativeElement);
