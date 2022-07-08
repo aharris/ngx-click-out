@@ -60,3 +60,11 @@ export class AppModule { }
 | ------ | ----------- |
 | in     | Event fired when an element is initialized and ready to be clicked out of. |
 | out    | Event fired when an initialized element is clicked outside of.             |
+
+
+## Donate
+
+If my work saves you time feel free to buy me a beer to keep it going. Cheers!
+
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=CLJXYJ38HDE8Q)
