@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build && ncp LICENSE dist/ngx-click-out/LICENSE",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "yalc:push": "npm run build && cd dist/ngx-click-out && yalc push && cd ../.."
   },
   "private": false,
   "dependencies": {

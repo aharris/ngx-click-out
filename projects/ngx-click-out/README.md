@@ -48,6 +48,12 @@ export class AppModule { }
   </div>
 ```
 
+## Inputs
+
+| Event     | Type     | Default                              | Description                         |
+| --------- | -------- | ------------------------------------ | ----------------------------------- |
+| outEvents | string[] | `['click', 'touchstart', 'focusin']` | Array of event names that will fire |
+
 ## Events
 
 | Event  | description |

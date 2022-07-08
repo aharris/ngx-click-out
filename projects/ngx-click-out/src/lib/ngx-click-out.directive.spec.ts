@@ -49,30 +49,6 @@ class ContainerCustomOutComponent {
   onIn() { }
 }
 
-@Component({
-  selector: 'app-test-container',
-  template: `
-    <div>
-      <div id="inner-content"
-        click-out
-        [inEvents]="['mouseenter']"
-        (in)="onIn()">
-        (out)="onOut()">
-          Inner Content
-      </div>
-      <div id="outer-content">
-        Outer Content
-
-        <input id="outer-input" />
-      </div>
-    </div>
-  `
-})
-class ContainerCustomInComponent {
-  onOut() { }
-  onIn() { }
-}
-
 describe('ClickOutDirective', () => {
   describe('In - Initializing Triggers', () => {
     let fixture: ComponentFixture<ContainerComponent>;
@@ -100,72 +76,11 @@ describe('ClickOutDirective', () => {
 
       fixture.debugElement.nativeElement.querySelector('#inner-content').click();
 
-      expect(container.onIn).toHaveBeenCalled();
-    });
-
-    it('should initialize by default in events - focusin', () => {
-      spyOn(container, 'onIn')
-
-      expect(container.onIn).not.toHaveBeenCalled();
-
-      fixture.debugElement.nativeElement.querySelector('#inner-content')
-        .dispatchEvent(new Event('focusin', {
-          'bubbles': true
-        }));
-
-      expect(container.onIn).toHaveBeenCalled();
-    });
-
-    it('should initialize by default in events - touchstart', () => {
-      spyOn(container, 'onIn')
-
-      expect(container.onIn).not.toHaveBeenCalled();
-
-      fixture.debugElement.nativeElement.querySelector('#inner-content')
-        .dispatchEvent(new Event('touchstart', {
-          'bubbles': true
-        }));
-
-      expect(container.onIn).toHaveBeenCalled();
-    });
-  });
-
-  describe('In - Custom Triggers', () => {
-    let fixture: ComponentFixture<ContainerCustomInComponent>;
-    let container: ContainerComponent;
-
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        declarations: [ContainerCustomInComponent, ClickOutDirective],
-        providers: [
-          {
-            provide: ComponentFixtureAutoDetect,
-            useValue: true
-          }
-        ]
-      });
-
-      fixture = TestBed.createComponent(ContainerCustomInComponent);
-      container = fixture.componentInstance;
-    });
-
-    it('should have custom trigger events', () => {
-      spyOn(container, 'onIn')
-
-      expect(container.onIn).not.toHaveBeenCalled();
-
-      fixture.debugElement.nativeElement.querySelector('#inner-content')
-        .dispatchEvent(new MouseEvent('mouseenter', {
-          'bubbles': true
-        }));
-
-      expect(container.onIn).toHaveBeenCalled();
+      expect(container.onIn).toHaveBeenCalledTimes(1);
 
       fixture.debugElement.nativeElement.querySelector('#inner-content').click();
 
-      spyOn(container, 'onOut');
-
-      expect(container.onOut).not.toHaveBeenCalled();
+      expect(container.onIn).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -197,7 +112,12 @@ describe('ClickOutDirective', () => {
 
       fixture.debugElement.nativeElement.querySelector('#outer-content').click();
 
-      expect(container.onOut).toHaveBeenCalled();
+      expect(container.onOut).toHaveBeenCalledTimes(1);
+
+      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+      fixture.debugElement.nativeElement.querySelector('#outer-content').click();
+
+      expect(container.onOut).toHaveBeenCalledTimes(2);
     });
 
     it('should have default trigger events - focusin', () => {
