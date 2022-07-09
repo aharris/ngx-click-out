@@ -49,10 +49,35 @@ class ContainerCustomOutComponent {
   onIn() { }
 }
 
+@Component({
+  selector: 'app-test-container',
+  template: `
+    <div>
+      <div id="inner-content"
+        click-out
+        [inEvents]="['mouseenter']"
+        (in)="onIn()">
+          Inner Content
+      </div>
+      <div id="outer-content">
+        Outer Content
+
+        <input id="outer-input" />
+      </div>
+    </div>
+  `
+})
+class ContainerCustomInComponent {
+  onOut() { }
+  onIn() { }
+}
+
 describe('ClickOutDirective', () => {
   describe('In - Initializing Triggers', () => {
     let fixture: ComponentFixture<ContainerComponent>;
     let container: ContainerComponent;
+    let inEl: HTMLElement;
+    let outEl: HTMLElement;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -67,6 +92,8 @@ describe('ClickOutDirective', () => {
 
       fixture = TestBed.createComponent(ContainerComponent);
       container = fixture.componentInstance;
+      inEl = fixture.debugElement.nativeElement.querySelector('#inner-content');
+      outEl = fixture.debugElement.nativeElement.querySelector('#outer-content');
     });
 
     it('should initialize by default in events - click', () => {
@@ -74,11 +101,49 @@ describe('ClickOutDirective', () => {
 
       expect(container.onIn).not.toHaveBeenCalled();
 
-      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+      inEl.click();
 
       expect(container.onIn).toHaveBeenCalledTimes(1);
 
-      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+      inEl.click();
+
+      expect(container.onIn).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  xdescribe('In - Custom Triggers', () => {
+    let fixture: ComponentFixture<ContainerCustomInComponent>;
+    let container: ContainerComponent;
+    let inEl: HTMLElement;
+    let outEl: HTMLElement;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [ContainerCustomInComponent, ClickOutDirective],
+        providers: [
+          {
+            provide: ComponentFixtureAutoDetect,
+            useValue: true
+          }
+        ]
+      });
+
+      fixture = TestBed.createComponent(ContainerCustomInComponent);
+      container = fixture.componentInstance;
+      inEl = fixture.debugElement.nativeElement.querySelector('#inner-content');
+      outEl = fixture.debugElement.nativeElement.querySelector('#outer-content');
+    });
+
+    it('should initialize by default in events - click', () => {
+      spyOn(container, 'onIn')
+
+      expect(container.onIn).not.toHaveBeenCalled();
+
+      inEl.click();
+
+      expect(container.onIn).toHaveBeenCalledTimes(1);
+
+      inEl.click();
 
       expect(container.onIn).toHaveBeenCalledTimes(2);
     });
@@ -87,6 +152,8 @@ describe('ClickOutDirective', () => {
   describe('Out - Triggers', () => {
     let fixture: ComponentFixture<ContainerComponent>;
     let container: ContainerComponent;
+    let inEl: HTMLElement;
+    let outEl: HTMLElement;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -101,27 +168,29 @@ describe('ClickOutDirective', () => {
 
       fixture = TestBed.createComponent(ContainerComponent);
       container = fixture.componentInstance;
+      inEl = fixture.debugElement.nativeElement.querySelector('#inner-content');
+      outEl = fixture.debugElement.nativeElement.querySelector('#outer-content');
     });
 
     it('should have default trigger events - click', () => {
-      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+      inEl.click();
 
       spyOn(container, 'onOut');
 
       expect(container.onOut).not.toHaveBeenCalled();
 
-      fixture.debugElement.nativeElement.querySelector('#outer-content').click();
+      outEl.click();
 
       expect(container.onOut).toHaveBeenCalledTimes(1);
 
-      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
-      fixture.debugElement.nativeElement.querySelector('#outer-content').click();
+      inEl.click();
+      outEl.click();
 
       expect(container.onOut).toHaveBeenCalledTimes(2);
     });
 
     it('should have default trigger events - focusin', () => {
-      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+      inEl.click();
 
       spyOn(container, 'onOut');
 
@@ -134,7 +203,7 @@ describe('ClickOutDirective', () => {
     });
 
     it('should have default trigger events - touchstart', () => {
-      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+      inEl.click();
 
       spyOn(container, 'onOut');
 
@@ -150,6 +219,8 @@ describe('ClickOutDirective', () => {
   describe('Out - Custom Triggers', () => {
     let fixture: ComponentFixture<ContainerComponent>;
     let container: ContainerComponent;
+    let inEl: HTMLElement;
+    let outEl: HTMLElement;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -164,23 +235,26 @@ describe('ClickOutDirective', () => {
 
       fixture = TestBed.createComponent(ContainerCustomOutComponent);
       container = fixture.componentInstance;
+      inEl = fixture.debugElement.nativeElement.querySelector('#inner-content');
+      outEl = fixture.debugElement.nativeElement.querySelector('#outer-content');
+
     });
 
     it('should have custom trigger events', () => {
-      fixture.debugElement.nativeElement.querySelector('#inner-content').click();
+      inEl.click();
 
       spyOn(container, 'onOut');
 
       expect(container.onOut).not.toHaveBeenCalled();
 
-      fixture.debugElement.nativeElement.querySelector('#outer-content')
+      outEl
         .dispatchEvent(new MouseEvent('click', {
           'bubbles': true
         }));
 
       expect(container.onOut).not.toHaveBeenCalled();
 
-      fixture.debugElement.nativeElement.querySelector('#outer-content')
+      outEl
         .dispatchEvent(new MouseEvent('mouseenter', {
           'bubbles': true
         }));

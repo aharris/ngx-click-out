@@ -14,6 +14,7 @@ interface ClickInOut {
 
 @Directive({ selector: '[click-out]' })
 export class ClickOutDirective {
+  @Input() inEvents: string[] = ['click', 'touchstart', 'focusin'];
   @Input() outEvents: string[] = ['click', 'touchstart', 'focusin'];
 
   @Output() in = new EventEmitter<ClickInOut>();
