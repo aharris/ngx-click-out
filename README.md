@@ -52,7 +52,8 @@ export class AppModule { }
 
 | Event     | Type     | Default                              | Description                         |
 | --------- | -------- | ------------------------------------ | ----------------------------------- |
-| outEvents | string[] | `['click', 'touchstart', 'focusin']` | Array of event names that will fire |
+| inEvents  | string[] | `['click']`                          | Array of event names that will initialize `outEvents` |
+| outEvents | string[] | `['click', 'touchstart', 'focusin']` | Array of event names that will fire the `out` event |
 
 ## Events
 
