@@ -111,7 +111,7 @@ describe('ClickOutDirective', () => {
     });
   });
 
-  xdescribe('In - Custom Triggers', () => {
+  describe('In - Custom Triggers', () => {
     let fixture: ComponentFixture<ContainerCustomInComponent>;
     let container: ContainerComponent;
     let inEl: HTMLElement;
@@ -134,16 +134,22 @@ describe('ClickOutDirective', () => {
       outEl = fixture.debugElement.nativeElement.querySelector('#outer-content');
     });
 
-    it('should initialize by default in events - click', () => {
+    it('should initialize by custom event - mouseenter', () => {
       spyOn(container, 'onIn')
 
       expect(container.onIn).not.toHaveBeenCalled();
 
-      inEl.click();
+      inEl
+        .dispatchEvent(new MouseEvent('mouseenter', {
+          'bubbles': true
+        }));
 
       expect(container.onIn).toHaveBeenCalledTimes(1);
 
-      inEl.click();
+      inEl
+      .dispatchEvent(new MouseEvent('mouseenter', {
+        'bubbles': true
+      }));
 
       expect(container.onIn).toHaveBeenCalledTimes(2);
     });

@@ -5,6 +5,9 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnInit,
+  Renderer2,
+  OnDestroy,
 } from '@angular/core';
 
 interface ClickInOut {
@@ -13,29 +16,40 @@ interface ClickInOut {
 }
 
 @Directive({ selector: '[click-out]' })
-export class ClickOutDirective {
-  @Input() inEvents: string[] = ['click', 'touchstart', 'focusin'];
+export class ClickOutDirective implements OnInit, OnDestroy {
+  @Input() inEvents: string[] = ['click'];
   @Input() outEvents: string[] = ['click', 'touchstart', 'focusin'];
 
   @Output() in = new EventEmitter<ClickInOut>();
   @Output() out = new EventEmitter<ClickInOut>();
 
   private outEventListener: (event: Event) => void;
+  private inEventListener: (event: Event) => void;
 
   constructor(
-    private readonly elementRef: ElementRef
+    private readonly elementRef: ElementRef,
+    private renderer: Renderer2
   ) {}
 
-  @HostListener('click', ['$event.target'])
-  onClickInside(event: Event) {
-      this.in.emit({
-        event,
-        targetElement: this.elementRef.nativeElement
-      });
+  ngOnInit(): void {
+    this.inEvents.forEach((eventName: string) => {
+      this.inEventListener = this.renderer.listen(this.elementRef.nativeElement, eventName, e => this.onClickInside(e));
+    });
+  }
 
-      this.removeOutEventListeners();
+  ngOnDestroy(): void {
+    this.removeInEventListeners();
+  }
 
-      this.setUpClickOut(this.elementRef.nativeElement);
+  private onClickInside(event: Event) {
+    this.in.emit({
+      event,
+      targetElement: this.elementRef.nativeElement
+    });
+
+    this.removeOutEventListeners();
+
+    this.setUpClickOut(this.elementRef.nativeElement);
   }
 
   private setUpClickOut(targetElement: HTMLElement): void {
@@ -60,6 +74,12 @@ export class ClickOutDirective {
   private removeOutEventListeners() {
     this.outEvents.forEach((eventName: string) => {
       document.removeEventListener(eventName, this.outEventListener);
+    });
+  }
+
+  private removeInEventListeners() {
+    this.inEvents.forEach((eventName: string) => {
+      document.removeEventListener(eventName, this.inEventListener);
     });
   }
 }

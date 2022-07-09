@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build && ncp LICENSE dist/ngx-click-out/LICENSE",
+    "build": "ng build && ncp LICENSE dist/ngx-click-out/LICENSE && ncp README.md dist/ngx-click-out/README.md",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "yalc:push": "npm run build && cd dist/ngx-click-out && yalc push && cd ../.."
