@@ -7,13 +7,13 @@ A more performant way to trigger events when an element is clicked away from. By
 NPM: 
 
 ```
-npm i npx-click-out
+npm i ngx-click-out
 ```
 
 Yarn: 
 
 ```
-yarn add npx-click-out
+yarn add ngx-click-out
 ```
 
 ## Usage:
