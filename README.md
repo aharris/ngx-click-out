@@ -7,13 +7,13 @@ A more performant way to trigger events when an element is clicked away from. By
 NPM: 
 
 ```
-npm i ngx-click-out
+npm i @busypixels/ngx-click-out
 ```
 
 Yarn: 
 
 ```
-yarn add ngx-click-out
+yarn add @busypixels/ngx-click-out
 ```
 
 ## Usage:
@@ -21,7 +21,7 @@ yarn add ngx-click-out
 ### Import the Module:
 
 ```ts
-import { NgxClickOutModule } from 'ngx-click-out';
+import { NgxClickOutModule } from '@busypixels/ngx-click-out';
 
 @NgModule({
   ...
